@@ -32,7 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
           )
       ),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
         appBar: AppBar(
           title: Text('إسلامي'),
         ),
