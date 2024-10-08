@@ -4,7 +4,7 @@ import 'package:islamic_app/home_screen.dart';
 import 'package:islamic_app/tabs/quran/sura_content_screen.dart';
 
 void main(){
-  runApp(IslamiApp());
+  runApp(const IslamiApp());
 }
 
 class IslamiApp extends StatelessWidget {
@@ -15,7 +15,7 @@ class IslamiApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        HomeScreen.routeName :(context) => HomeScreen(),
+        HomeScreen.routeName :(context) => const HomeScreen(),
         SuraContentScreen.routeName : (context) => SuraContentScreen(),
       },
       initialRoute: HomeScreen.routeName,

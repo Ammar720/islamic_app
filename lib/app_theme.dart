@@ -11,11 +11,14 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     primaryColor: lightPrimary,
     scaffoldBackgroundColor: Colors.transparent,
-    textTheme: GoogleFonts.interTextTheme(TextTheme(
-        headlineSmall:
-            TextStyle(fontSize: 25, fontWeight: FontWeight.w400, color: black),
-        titleLarge: TextStyle(
-            fontSize: 20, fontWeight: FontWeight.w400, color: black))),
+    textTheme: TextTheme(
+        headlineSmall: GoogleFonts.inter(
+            fontSize: 25, fontWeight: FontWeight.w400, color: black),
+        titleLarge: GoogleFonts.inter(
+            fontSize: 20, fontWeight: FontWeight.w400, color: black),
+        headlineMedium: GoogleFonts.elMessiri(
+            fontSize: 25, fontWeight: FontWeight.w600, color: black)
+            ),
     appBarTheme: AppBarTheme(
         backgroundColor: Colors.transparent,
         centerTitle: true,
@@ -23,8 +26,9 @@ class AppTheme {
           color: black,
           fontWeight: FontWeight.bold,
           fontSize: 30,
-        )),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        )
+        ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         type: BottomNavigationBarType.fixed,
         backgroundColor: lightPrimary,
         unselectedItemColor: white,
