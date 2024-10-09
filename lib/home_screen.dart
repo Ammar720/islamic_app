@@ -17,15 +17,15 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0 ;
   List<Widget> tabs = [
     QuranTab() ,
-    HadethTab(),
-    SebhaTab(),
-    RadioTab(),
-    SettingsTab(),
+    const HadethTab(),
+    const SebhaTab(),
+    const RadioTab(),
+    const SettingsTab(),
   ];
   @override
    Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/images/dafault_background.png'),
           fit: BoxFit.fill
@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('إسلامي'),
+          title: const Text('إسلامي'),
         ),
         body:tabs[currentIndex] ,
         bottomNavigationBar:BottomNavigationBar(
@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
             currentIndex = index;
             setState(() {});
           },
-          items: [
+          items: const [
             BottomNavigationBarItem(
               icon: ImageIcon(AssetImage('assets/images/quran_icon.png')),
               label:'Quran'
