@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:islamic_app/app_theme.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:islamic_app/tabs/settings/settings_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SebhaTab extends StatefulWidget {
   const SebhaTab({super.key});
@@ -20,6 +23,8 @@ class _SebhaTabState extends State<SebhaTab> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.sizeOf(context).height;
     double screenWidth = MediaQuery.sizeOf(context).width;
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
+
     return Column(
       children: [
         Stack(
@@ -28,11 +33,14 @@ class _SebhaTabState extends State<SebhaTab> {
                 alignment: Alignment.topCenter,
                 padding: EdgeInsets.only(left: screenWidth * 0.1),
                 child: Image.asset(
-                  'assets/images/head_seb7a.png',
+                  settingsProvider.themeMode == ThemeMode.light
+                      ? 'assets/images/head_seb7a.png'
+                      : 'assets/images/head_seb7a_dark.png',
                 )),
             Container(
               alignment: Alignment.center,
-              padding: EdgeInsets.only(top: screenWidth * 0.093),
+              padding: EdgeInsetsDirectional.only(
+                  top: screenWidth * (settingsProvider.isDark ? 0.19 : 0.093)),
               child: GestureDetector(
                 onTap: () => {
                   count++,
@@ -50,23 +58,27 @@ class _SebhaTabState extends State<SebhaTab> {
                   duration: const Duration(milliseconds: 100),
                   turns: rotateAngle,
                   child: Image.asset(
-                    'assets/images/body_seb7a.png',
+                    settingsProvider.themeMode == ThemeMode.light
+                        ? 'assets/images/body_seb7a.png'
+                        : 'assets/images/body_seb7a_dark.png',
                   ),
                 ),
               ),
             )
           ],
         ),
-        SizedBox(height: screenHeight * 0.01),
+        SizedBox(height: screenHeight *(settingsProvider.isDark ? 0.06 : 0.02)),
         Text(
-          'عدد التسبيحات',
+          AppLocalizations.of(context)!.tasbeeh_number,
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         SizedBox(height: screenHeight * 0.04),
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
-            color: const Color.fromRGBO(183, 148, 95, 0.569),
+            color: settingsProvider.themeMode == ThemeMode.light
+                ? const Color.fromRGBO(183, 148, 95, 0.569)
+                : AppTheme.darkPrimary,
           ),
           height: screenHeight * 0.1,
           width: screenWidth * 0.18,
@@ -80,7 +92,9 @@ class _SebhaTabState extends State<SebhaTab> {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
-            color: AppTheme.lightPrimary,
+            color: settingsProvider.isDark
+                ? AppTheme.gold
+                : AppTheme.lightPrimary,
           ),
           height: screenHeight * 0.05,
           width: screenWidth * 0.3,
@@ -90,7 +104,9 @@ class _SebhaTabState extends State<SebhaTab> {
             style: GoogleFonts.inter(
                 fontSize: screenWidth * 0.06,
                 fontWeight: FontWeight.w400,
-                color: AppTheme.white),
+                color: settingsProvider.themeMode == ThemeMode.light
+                    ? AppTheme.white
+                    : AppTheme.black),
           ),
         )
       ],

@@ -3,9 +3,14 @@ import 'package:islamic_app/tabs/hadeth/hadeth_tab.dart';
 import 'package:islamic_app/tabs/quran/quran_tab.dart';
 import 'package:islamic_app/tabs/radio/radio_tab.dart';
 import 'package:islamic_app/tabs/sebha/sebha_tab.dart';
+import 'package:islamic_app/tabs/settings/settings_provider.dart';
 import 'package:islamic_app/tabs/settings/settings_tab.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class HomeScreen extends StatefulWidget { 
+
+
+class HomeScreen extends StatefulWidget {
   static const String routeName = '/home';
   const HomeScreen({super.key});
 
@@ -13,59 +18,50 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> { 
-  int currentIndex = 0 ;
+class _HomeScreenState extends State<HomeScreen> {
+  int currentIndex = 0;
   List<Widget> tabs = [
-    QuranTab() ,
-    HadethTab(),
+    QuranTab(),
+    const HadethTab(),
     const SebhaTab(),
     const RadioTab(),
     const SettingsTab(),
   ];
   @override
-   Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/images/dafault_background.png'),
-          fit: BoxFit.fill
-          )
-      ),
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(
+                  'assets/images/${Provider.of<SettingsProvider>(context).backgroundImageName}.png'),
+              fit: BoxFit.fill)),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('إسلامي'),
+          title:  Text(AppLocalizations.of(context)!.islami),
         ),
-        body:tabs[currentIndex] ,
-        bottomNavigationBar:BottomNavigationBar(
-          currentIndex: currentIndex,
-          onTap:(index) {
-            currentIndex = index;
-            setState(() {});
-          },
-          items: const [
-            BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage('assets/images/quran_icon.png')),
-              label:'Quran'
-              ),
-           BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage('assets/images/hadeth_icon.png')),
-              label:'Hadeth'
-              ),
-           BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage('assets/images/sebha_icon.png')),
-              label:'Sebha'
-              ),
-            BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage('assets/images/radio_icon.png')),
-              label:'Radio'
-              ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings_outlined),
-              label:'Settings'
-              ),
-            
-          ]
-          ),
+        body: tabs[currentIndex],
+        bottomNavigationBar: BottomNavigationBar(
+            currentIndex: currentIndex,
+            onTap: (index) {
+              currentIndex = index;
+              setState(() {});
+            },
+            items:  [
+              BottomNavigationBarItem(
+                  icon: const ImageIcon(AssetImage('assets/images/quran_icon.png')),
+                  label: AppLocalizations.of(context)!.quran),
+              BottomNavigationBarItem(
+                  icon: const ImageIcon(AssetImage('assets/images/hadeth_icon.png')),
+                  label: AppLocalizations.of(context)!.hadeth),
+              BottomNavigationBarItem(
+                  icon: const ImageIcon(AssetImage('assets/images/sebha_icon.png')),
+                  label:AppLocalizations.of(context)!.sebha),
+              BottomNavigationBarItem(
+                  icon: const ImageIcon(AssetImage('assets/images/radio_icon.png')),
+                  label:AppLocalizations.of(context)!.radio),
+              BottomNavigationBarItem(
+                  icon: const Icon(Icons.settings_outlined), label: AppLocalizations.of(context)!.settings),
+            ]),
       ),
     );
   }

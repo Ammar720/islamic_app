@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:islamic_app/app_theme.dart';
 import 'package:islamic_app/tabs/quran/quran_tab.dart';
+import 'package:islamic_app/tabs/settings/settings_provider.dart';
 import 'package:islamic_app/widget/loading_indicator.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SuraContentScreen extends StatefulWidget {
   static const String routeName = '/sura';
@@ -20,26 +23,31 @@ class _SuraContentScreenState extends State<SuraContentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
     args = ModalRoute.of(context)!.settings.arguments as SuraContentArgs;
     if (ayat.isEmpty) {
       loadSuraFile();
     }
     return Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/images/dafault_background.png'),
+                image: AssetImage(
+                    'assets/images/${Provider.of<SettingsProvider>(context).backgroundImageName}.png'),
                 fit: BoxFit.fill)),
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('إسلامي'),
-          ),
+              title: Text(
+            AppLocalizations.of(context)!.quran,
+          )),
           body: Container(
               padding: const EdgeInsets.all(25),
               margin: EdgeInsets.symmetric(
                   horizontal: 30,
                   vertical: MediaQuery.sizeOf(context).height * 0.07),
               decoration: BoxDecoration(
-                  color: AppTheme.white,
+                  color: settingsProvider.themeMode == ThemeMode.light
+                      ? AppTheme.white
+                      : AppTheme.darkPrimary,
                   borderRadius: BorderRadius.circular(25)),
               child: Column(
                 children: [
@@ -48,32 +56,46 @@ class _SuraContentScreenState extends State<SuraContentScreen> {
                     children: [
                       Text(
                         ' سورة ${args.suraName}',
-                        style: Theme.of(context).textTheme.headlineSmall,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall
+                            ?.copyWith(
+                                color: settingsProvider.isDark
+                                    ? AppTheme.gold
+                                    : AppTheme.black),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 35),
+                      Padding(
+                        padding: const EdgeInsetsDirectional.symmetric(horizontal: 35),
                         child: Icon(
                           Icons.play_circle,
-                          color: AppTheme.black,
+                          color: settingsProvider.themeMode == ThemeMode.light
+                              ? AppTheme.black
+                              : AppTheme.gold,
                           size: 35,
                         ),
                       )
                     ],
                   ),
-                  const Divider(
-                    color: AppTheme.lightPrimary,
+                  Divider(
+                    color: settingsProvider.themeMode == ThemeMode.light
+                        ? AppTheme.lightPrimary
+                        : AppTheme.gold,
                     endIndent: 20,
                   ),
                   ayat.isEmpty
                       ? const LoadingIndicator()
                       : Expanded(
-                          child: ListView.builder(
+                          child: ListView.separated(
                             itemBuilder: (context, index) => Text(
-                              ayat[index],
+                              ('${ayat[index]} ( ${index + 1} )'),
                               textAlign: TextAlign.center,
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
                             itemCount: ayat.length,
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(
+                              height: 10,
+                            ),
                           ),
                         ),
                 ],

@@ -17,8 +17,7 @@ class AppTheme {
         titleLarge: GoogleFonts.inter(
             fontSize: 20, fontWeight: FontWeight.w400, color: black),
         headlineMedium: GoogleFonts.elMessiri(
-            fontSize: 25, fontWeight: FontWeight.w600, color: black)
-            ),
+            fontSize: 25, fontWeight: FontWeight.w600, color: black)),
     appBarTheme: AppBarTheme(
         backgroundColor: Colors.transparent,
         centerTitle: true,
@@ -26,14 +25,59 @@ class AppTheme {
           color: black,
           fontWeight: FontWeight.bold,
           fontSize: 30,
-        )
-        ),
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        )),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
         type: BottomNavigationBarType.fixed,
         backgroundColor: lightPrimary,
         unselectedItemColor: white,
-        selectedItemColor: black),
+        selectedItemColor: black,
+        selectedLabelStyle: GoogleFonts.inter(
+          color: black,
+          fontWeight: FontWeight.w500,
+          fontSize: 20,
+        ),
+        unselectedLabelStyle: GoogleFonts.inter(
+          color: black,
+          fontWeight: FontWeight.w500,
+          fontSize: 15,
+        ),
+        selectedIconTheme: const IconThemeData(size: 40 ,) ),
   );
 
-  static ThemeData darkTheme = ThemeData();
+  static ThemeData darkTheme = ThemeData(
+    primaryColor: darkPrimary,
+    scaffoldBackgroundColor: Colors.transparent,
+    textTheme: TextTheme(
+        headlineSmall: GoogleFonts.inter(
+            fontSize: 25, fontWeight: FontWeight.w400, color: white),
+        titleLarge: GoogleFonts.inter(
+            fontSize: 20, fontWeight: FontWeight.w400, color: gold),
+        headlineMedium: GoogleFonts.elMessiri(
+            fontSize: 25, fontWeight: FontWeight.w600, color: white)),
+    appBarTheme: AppBarTheme(
+        backgroundColor: Colors.transparent,
+        foregroundColor: white,
+        centerTitle: true,
+        titleTextStyle: GoogleFonts.elMessiri(
+          color: white,
+          fontWeight: FontWeight.bold,
+          fontSize: 30,
+        )),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: darkPrimary,
+        unselectedItemColor: white,
+        selectedItemColor: gold,
+        selectedLabelStyle: GoogleFonts.inter(
+          color: black,
+          fontWeight: FontWeight.w500,
+          fontSize: 20,
+        ),
+        unselectedLabelStyle: GoogleFonts.inter(
+          color: black,
+          fontWeight: FontWeight.w500,
+          fontSize: 15,
+        ),
+        selectedIconTheme: const IconThemeData(size: 40)),
+  );
 }

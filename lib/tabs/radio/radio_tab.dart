@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:islamic_app/app_theme.dart';
+import 'package:islamic_app/tabs/settings/settings_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RadioTab extends StatelessWidget {
   const RadioTab({super.key});
@@ -8,34 +11,41 @@ class RadioTab extends StatelessWidget {
   Widget build(BuildContext context) {
      double screenHeight = MediaQuery.sizeOf(context).height;
     double screenWidth = MediaQuery.sizeOf(context).width;
+  SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.asset('assets/images/radio_image.png'),
         SizedBox(height: screenHeight * 0.08),
         Text(
-          'إذاعة القرآن الكريم',
+           AppLocalizations.of(context)!.quran_radio,
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         SizedBox(height: screenHeight * 0.05),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
+             Icon(
               Icons.skip_previous,
-              color: AppTheme.lightPrimary,
+              color:settingsProvider.themeMode == ThemeMode.light
+                        ? AppTheme.lightPrimary
+                        : AppTheme.gold,
               size: 35,
             ),
             SizedBox(width: screenWidth * 0.1,),
-             const Icon(
+              Icon(
               Icons.play_arrow_rounded,
-              color: AppTheme.lightPrimary,
+              color:settingsProvider.themeMode == ThemeMode.light
+                        ? AppTheme.lightPrimary
+                        : AppTheme.gold,
               size: 70,
             ),
             SizedBox(width: screenWidth * 0.1,),
-             const Icon(
+              Icon(
               Icons.skip_next,
-              color: AppTheme.lightPrimary,
+              color: settingsProvider.themeMode == ThemeMode.light
+                        ? AppTheme.lightPrimary
+                        : AppTheme.gold,
               size: 35,
             ),
           ],

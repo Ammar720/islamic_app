@@ -3,6 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:islamic_app/app_theme.dart';
 import 'package:islamic_app/tabs/hadeth/hadeth_args.dart';
 import 'package:islamic_app/tabs/hadeth/hadeth_content_screen.dart';
+import 'package:islamic_app/tabs/settings/settings_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HadethTab extends StatefulWidget {
   const HadethTab({super.key});
@@ -17,6 +20,7 @@ class _HadethTabState extends State<HadethTab> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.sizeOf(context).width;
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
 
     if (hadeth.isEmpty) {
       loadHadethFile();
@@ -27,15 +31,18 @@ class _HadethTabState extends State<HadethTab> {
           'assets/images/hadeth_logo.png',
         ),
         Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
               border: Border.symmetric(
-                  horizontal:
-                      BorderSide(color: AppTheme.lightPrimary, width: 3))),
+                  horizontal: BorderSide(
+                      color: settingsProvider.themeMode == ThemeMode.light
+                          ? AppTheme.lightPrimary
+                          : AppTheme.gold,
+                      width: 3))),
           width: screenWidth,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'الأحاديث',
+             AppLocalizations.of(context)!.hadeth,
               style: Theme.of(context).textTheme.headlineMedium,
               textAlign: TextAlign.center,
             ),
@@ -61,9 +68,11 @@ class _HadethTabState extends State<HadethTab> {
               ),
             ),
             itemCount: hadeth.length,
-            separatorBuilder: (context, index) => const Divider(
+            separatorBuilder: (context, index) => Divider(
               thickness: 2,
-              color: AppTheme.lightPrimary,
+              color: settingsProvider.themeMode == ThemeMode.light
+                  ? AppTheme.lightPrimary
+                  : AppTheme.gold,
             ),
           ),
         )

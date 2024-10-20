@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:islamic_app/app_theme.dart';
 import 'package:islamic_app/tabs/quran/sura_content_screen.dart';
+import 'package:islamic_app/tabs/settings/settings_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 // ignore: must_be_immutable
 class QuranTab extends StatelessWidget {
@@ -241,6 +245,7 @@ class QuranTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
     return Column(
       children: [
         Image.asset(
@@ -248,30 +253,35 @@ class QuranTab extends StatelessWidget {
           height: MediaQuery.sizeOf(context).height * 0.25,
         ),
         Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
               border: Border.symmetric(
-                  horizontal:
-                      BorderSide(color: AppTheme.lightPrimary, width: 2.5))),
+                  horizontal: BorderSide(
+                      color: settingsProvider.themeMode == ThemeMode.light
+                          ? AppTheme.lightPrimary
+                          : AppTheme.gold,
+                      width: 2.5))),
           child: IntrinsicHeight(
             child: Row(
               children: [
                 Expanded(
                   child: Text(
-                    'عدد الآيات',
+                    AppLocalizations.of(context)!.verses_number,
                     style: Theme.of(context).textTheme.headlineMedium,
                     textAlign: TextAlign.center,
                   ),
                 ),
-                const Expanded(
-                  flex: 0,
+                Expanded(
+                    flex: 0,
                     child: VerticalDivider(
-                  color: AppTheme.lightPrimary,
-                  width: 3,
-                  thickness: 3,
-                )),
+                      color: settingsProvider.themeMode == ThemeMode.light
+                          ? AppTheme.lightPrimary
+                          : AppTheme.gold,
+                      width: 3,
+                      thickness: 3,
+                    )),
                 Expanded(
                   child: Text(
-                    'إسم السورة',
+                    AppLocalizations.of(context)!.surah_name,
                     style: Theme.of(context).textTheme.headlineMedium,
                     textAlign: TextAlign.center,
                   ),
@@ -300,10 +310,12 @@ class QuranTab extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const Expanded(
+                    Expanded(
                       flex: 0,
                       child: VerticalDivider(
-                        color: AppTheme.lightPrimary,
+                        color: settingsProvider.themeMode == ThemeMode.light
+                            ? AppTheme.lightPrimary
+                            : AppTheme.gold,
                         width: 3,
                         thickness: 3,
                       ),
@@ -320,10 +332,12 @@ class QuranTab extends StatelessWidget {
               ),
             ),
             itemCount: suraNames.length,
-            separatorBuilder: (context, index) => const Divider(
+            separatorBuilder: (context, index) => Divider(
               height: 0,
               thickness: 2,
-              color: AppTheme.lightPrimary,
+              color: settingsProvider.themeMode == ThemeMode.light
+                  ? AppTheme.lightPrimary
+                  : AppTheme.gold,
             ),
           ),
         )
@@ -331,6 +345,7 @@ class QuranTab extends StatelessWidget {
     );
   }
 }
+
 class SuraContentArgs {
   int index;
   String suraName;
