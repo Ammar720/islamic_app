@@ -40,7 +40,7 @@ class _SebhaTabState extends State<SebhaTab> {
             Container(
               alignment: Alignment.center,
               padding: EdgeInsetsDirectional.only(
-                  top: screenWidth * (settingsProvider.isDark ? 0.19 : 0.093)),
+                  top: screenWidth * (settingsProvider.isDark ? 0.195 : 0.098)),
               child: GestureDetector(
                 onTap: () => {
                   count++,

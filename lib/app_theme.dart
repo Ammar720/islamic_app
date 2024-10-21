@@ -34,12 +34,12 @@ class AppTheme {
         selectedLabelStyle: GoogleFonts.inter(
           color: black,
           fontWeight: FontWeight.w500,
-          fontSize: 20,
+          fontSize: 15,
         ),
         unselectedLabelStyle: GoogleFonts.inter(
           color: black,
           fontWeight: FontWeight.w500,
-          fontSize: 15,
+          fontSize: 10,
         ),
         selectedIconTheme: const IconThemeData(size: 40 ,) ),
   );
